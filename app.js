@@ -5,12 +5,19 @@ const app = {
   },
 
   playingAround: () => {
-    let data = [1, 2, 3, 4];
-    let p = d3.select("body").append("p")
-      .data(data)
+    let storage = [1, 2, 3, 4];
+    let p = d3.select("body").selectAll("p")
+      .data(storage)
       .enter()
       .append("p")
-      .text("The spice must flow")
+      .text( (data, i) => {
+        let bass = 808;
+        let nectar;
+        nectar = 'this is i ' + i + ' ' + data + bass;
+        return nectar;
+      })
+      // the data operator .data(data) joins an array of data with the current selection
+      // .enter() only allows chaining of append, insert, and select operators
 
     // CIRCLE:
     // <svg width="50" height="50">
