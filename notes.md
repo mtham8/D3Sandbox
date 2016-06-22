@@ -16,3 +16,4 @@
 6. _Refine:_ Improve the basic representation to make it clearer and more visually engaging.
 
 7. _Interact:_ Add methods for manipulating the data or controlling what features are visible.
+

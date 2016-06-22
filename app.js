@@ -1,11 +1,16 @@
-var app = {
+const app = {
 
-  init: function () {
+  init: () => {
     app.playingAround();
   },
 
-  playingAround: function () {
-    // d3.select("body").append("p");
+  playingAround: () => {
+    let data = [1, 2, 3, 4];
+    let p = d3.select("body").append("p")
+      .data(data)
+      .enter()
+      .append("p")
+      .text("The spice must flow")
 
     // CIRCLE:
     // <svg width="50" height="50">
@@ -13,31 +18,41 @@ var app = {
     // </svg>
     d3.select("body")
       .append("div")
-      .append("svg") // append an element
+      .append("svg") // append an element as the last child of the element in the current selection
       .attr("width", 30) // add on attributes
       .attr("height", 30)
       .append("circle")
       .attr("cx", 15)
       .attr("cy", 15)
       .attr("r", 15)
-      .style("fill", "green");
-    // The Style Operator, if a name and value is specified, sets the CSS style property
-    // for the given selection with the given specified value.
+      .style("fill", "#09765A");
 
     // SQUARE:
     // <svg width="50" height="50">
     //   <rect x="0" y="0" width="50" height="50" fill="green" />
     // </svg>
-    d3.select("body")
-      .append("div")
+    // d3.select("body")
+    //   .append("div")
+    //   .append("svg")
+    //   .attr("width", 30)
+    //   .attr("height", 30)
+    //   .append("rect")
+    //   .attr("x", 0)
+    //   .attr("y", 0)
+    //   .attr("width", 30)
+    //   .attr("height", 30)
+    //   .style("fill", black)
+    const bodySelection = d3.select("body");
+    const svgSelection = bodySelection.append("div")
       .append("svg")
       .attr("width", 30)
       .attr("height", 30)
-      .append("rect")
+    const squareSelection = svgSelection.append("rect")
       .attr("x", 0)
       .attr("y", 0)
       .attr("width", 30)
       .attr("height", 30)
-      .style("fill", black)
+      .style("fill", "#90CC54")
+  }
 
 }
