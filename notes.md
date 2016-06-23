@@ -42,6 +42,7 @@ Each of these resources will return data that D3.js can then use. The only thing
 make sure you construct an array out of the data.
 
 CIRCLE:
+The important attributes we need to draw an SVG Circle in D3.js are - cx, cy and r.
 <svg width="50" height="50">
   <circle cx="25" cy="25" r="25" fill="purple" />
 </svg>
@@ -51,14 +52,19 @@ CIRCLE:
 </svg>
 
 SQUARE:
+The important attributes we need to draw an SVG Rectangle in D3.js are - x, y, width and height.
 <svg width="50" height="50">
   <rect x="0" y="0" width="50" height="50" fill="green" />
 </svg>
 
 LINE:
+The important attributes we need to draw an SVG Straight Line in D3.js are - x1, y1, x2, y2, stroke-width and stroke.
 <svg width="50" height="50">
   <line x1="5" y1="5" x2="40" y2="40" stroke="gray" stroke-width="5"  />
 </svg>
+Make sure to give the line:
+.attribute("stroke-width", NUMBER), where NUMBER is how wide the line is in units
+.attribute("stroke", "COLOR"), where COLOR is a color to used to color the line
 
 POLYGON:
 <svg width="50" height="50">
@@ -78,3 +84,44 @@ POLYLINE:
              25,10
              35,10" />
  </svg>
+
+SVG PATH:
+SVG Paths represent the outline of a shape that can be stroked, filled, used as a clipping path, or any combination of all three.
+The shape of an SVG Path element is defined by one attribute: d.
+
+This attribute, d, contains a series of commands and parameters in the SVG Path Mini-Language.
+
+These commands and parameters are a sequential set of instructions for how to "move the pen over the paper".
+
+The instructions are defined in case-senstive terms of moveto (set a new current point), lineto (draw a straight line),
+curveto (draw a curve using a cubic Bézier), arc (elliptical or circular arc) and closepath (close the current shape by
+drawing a line to the last moveto).
+<svg width="100" height="100">
+  <path d=" M 10 25
+            L 10 75
+            L 60 75
+            L 10 25"
+            stroke="red" stroke-width="2" fill="none" />
+</svg>
+The d=" M 10 25 ......" part of the SVG code above is the set of instructions we are giving our SVG Pen.
+In this case (all in the SVG Coordinate System - X coordinate first, then Y coordinate):
+M 10 25 - Put the pen down at 10 25
+L 10 75 - Draw a line to the point 10 75, from the previous point 10 25
+L 60 75 - Draw a line to the point 60 75, from the previous point 10 75
+L 10 25 - Draw a line to the point 10 25, from the previous point 60 75
+Note - our letters (M, L) are capitalized which means that we were using absolute positioning within our SVG Viewing window.
+If we use lower case commands, then we will be using relative positioning.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
