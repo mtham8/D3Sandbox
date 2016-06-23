@@ -40,3 +40,41 @@ D3.js has built in functionality to load in the following types of external reso
   a tab-separated values (TSV) file
 Each of these resources will return data that D3.js can then use. The only thing to pay attention to is to
 make sure you construct an array out of the data.
+
+CIRCLE:
+<svg width="50" height="50">
+  <circle cx="25" cy="25" r="25" fill="purple" />
+</svg>
+
+<svg width="50" height="50">
+  <ellipse cx="25" cy="25" rx="15" ry="10" fill="red" />
+</svg>
+
+SQUARE:
+<svg width="50" height="50">
+  <rect x="0" y="0" width="50" height="50" fill="green" />
+</svg>
+
+LINE:
+<svg width="50" height="50">
+  <line x1="5" y1="5" x2="40" y2="40" stroke="gray" stroke-width="5"  />
+</svg>
+
+POLYGON:
+<svg width="50" height="50">
+  <polygon fill="yellow" stroke="blue" stroke-width="2"
+    points="05,30
+            15,10
+            25,30" />
+</svg>
+
+POLYLINE:
+<svg width="50" height="50">
+   <polyline fill="none" stroke="blue" stroke-width="2"
+     points="05,30
+             15,30
+             15,20
+             25,20
+             25,10
+             35,10" />
+ </svg>

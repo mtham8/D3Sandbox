@@ -56,7 +56,12 @@ const app = {
 
   // style SVG elements based on data
   shapeInsideShape: () => {
-    let circleRadii = [40, 30, 20, 10];
+    let circleRadii = [
+    { "r": 40, "color" : "#90CC54" },
+    { "r": 30, "color" : "#B1DFF8" },
+    { "r": 20, "color" : "#09765A" },
+    { "r": 10, "color" : "#6BBFD5" }
+    ];
     let svgContainer = d3.select("body").append("svg")
       .attr("width", 100)
       .attr("height", 100);
@@ -67,24 +72,19 @@ const app = {
     let circleAttributes = circles.attr("cx", 50)
       .attr("cy", 50)
       .attr("r", (data) => {
-        return data;
+        return data.r;
       })
       .style("fill", (data) => {
-        let returnColor;
-        if(data === 40) returnColor = "#90CC54";
-        else if(data === 30) returnColor = "#B1DFF8";
-        else if(data === 20) returnColor = "#09765A";
-        else if(data === 10) returnColor = "#6BBFD5";
-        return returnColor;
+        return data.color;
       })
   },
 
   coordinateShape: () => {
     let spaceCircles = [
-    { "xAxis": 30, "yAxis": 30, "radius": 20, "color" : "#90CC54" },
-    { "xAxis": 70, "yAxis": 70, "radius": 20, "color" : "#B1DFF8" },
-    { "xAxis": 110, "yAxis": 110, "radius": 20, "color" : "#09765A" },
-    { "xAxis": 150, "yAxis": 150, "radius": 20, "color" : "#6BBFD5" }
+    { "xAxis": 30, "yAxis": 30, "color" : "#90CC54" },
+    { "xAxis": 70, "yAxis": 70, "color" : "#B1DFF8" },
+    { "xAxis": 110, "yAxis": 110, "color" : "#09765A" },
+    { "xAxis": 150, "yAxis": 150, "color" : "#6BBFD5" }
     ];
     let svgSpace = d3.select("body").append("svg")
       .attr("width", 200)
