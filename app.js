@@ -1,10 +1,12 @@
 const app = {
 
   init: () => {
-    app.playingAround();
+    app.solidShape();
+    app.shapeInsideShape();
+
   },
 
-  playingAround: () => {
+  solidShape: () => {
     let storage = [1, 2, 3, 4];
     let p = d3.select("body").selectAll("p")
       .data(storage)
@@ -60,6 +62,43 @@ const app = {
       .attr("width", 30)
       .attr("height", 30)
       .style("fill", "#90CC54")
+  },
+
+  shapeInsideShape: () => {
+    let circleRadii = [40, 30, 20, 10];
+    let svgContainer = d3.select("body").append("svg")
+      .attr("width", 600)
+      .attr("height", 100);
+    let circles = svgContainer.selectAll("circle")
+      .data(circleRadii)
+      .enter()
+      .append("circle")
+    let circleAttributes = circles.attr("cx", 50)
+      .attr("cy", 50)
+      .attr("r", (data) => {
+        return data;
+      })
+      .style("fill", (data) => {
+        let returnColor;
+        if(data === 40) returnColor = "#90CC54";
+        else if(data === 30) returnColor = "#B1DFF8";
+        else if(data === 20) returnColor = "#09765A";
+        else if(data === 10) returnColor = "#6BBFD5";
+        return returnColor;
+      })
   }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

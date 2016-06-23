@@ -16,3 +16,8 @@
 6. _Refine:_ Improve the basic representation to make it clearer and more visually engaging.
 
 7. _Interact:_ Add methods for manipulating the data or controlling what features are visible.
+
+When defining the circle SVG shape, three necessary attributes are attached:
+cx - The x-axis coordinate of the center of the circle.
+cy - The y-axis coordinate of the center of the circle.
+r - The radius of the circle.
