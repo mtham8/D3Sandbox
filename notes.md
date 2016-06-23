@@ -21,3 +21,8 @@ When defining the circle SVG shape, three necessary attributes are attached:
 cx - The x-axis coordinate of the center of the circle.
 cy - The y-axis coordinate of the center of the circle.
 r - The radius of the circle.
+
+SVG Coordinate Space works in the same way that mathematical graph coordinate space works except for two important features:
+1 - SVG Coordinate space has x=0 and y=0 coordinates fall on the top left.
+2 - SVG Coordinate space has the Y coordinate growing from top to bottom.
+Which means as Y increases, the coordinates move down, not up.
