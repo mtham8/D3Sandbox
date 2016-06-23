@@ -41,17 +41,6 @@ const app = {
     // <svg width="50" height="50">
     //   <rect x="0" y="0" width="50" height="50" fill="green" />
     // </svg>
-    // d3.select("body")
-    //   .append("div")
-    //   .append("svg")
-    //   .attr("width", 30)
-    //   .attr("height", 30)
-    //   .append("rect")
-    //   .attr("x", 0)
-    //   .attr("y", 0)
-    //   .attr("width", 30)
-    //   .attr("height", 30)
-    //   .style("fill", black)
     const bodySelection = d3.select("body");
     const svgSelection = bodySelection.append("div")
       .append("svg")
@@ -91,7 +80,12 @@ const app = {
   },
 
   coordinateShape: () => {
-    let spaceCircles = [30, 70, 110, 150];
+    let spaceCircles = [
+    { "xAxis": 30, "yAxis": 30, "radius": 20, "color" : "#90CC54" },
+    { "xAxis": 70, "yAxis": 70, "radius": 20, "color" : "#B1DFF8" },
+    { "xAxis": 110, "yAxis": 110, "radius": 20, "color" : "#09765A" },
+    { "xAxis": 150, "yAxis": 150, "radius": 20, "color" : "#6BBFD5" }
+    ];
     let svgSpace = d3.select("body").append("svg")
       .attr("width", 200)
       .attr("height", 200);
@@ -99,17 +93,10 @@ const app = {
       .data(spaceCircles)
       .enter()
       .append("circle");
-    let circleAttr = circle.attr("cx", (data) => { return data; })
-      .attr("cy", (data) => { return data; })
+    let circleAttr = circle.attr("cx", (data) => { return data.xAxis; })
+      .attr("cy", (data) => { return data.yAxis; })
       .attr("r", 20)
-      .style("fill", (data) => {
-        let color;
-        if(data === 30) color = "#90CC54";
-        else if(data === 70) color = "#B1DFF8";
-        else if(data === 110) color = "#09765A";
-        else if(data === 150) color = "#6BBFD5";
-        return color;
-      })
+      .style("fill", (data) => { return data.color })
   }
 
 }

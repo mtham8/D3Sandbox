@@ -7,7 +7,9 @@
   This structure will make it easier to know convey to others what data you have by format, tags, names, and indices.
 
 3. _Filter:_ Remove all but the data of interest.
-  After putting the data into a structure. You will have to filter out the data that is not necessary for your Data Visualization. If you are doing a specific gender visualization, you would have to remove the genders you did not want in your data set.
+  After putting the data into a structure. You will have to filter out the data that is not necessary
+  for your Data Visualization. If you are doing a specific gender visualization, you would have to remove
+  the genders you did not want in your data set.
 
 4. _Mine:_ Apply methods from statistics or data mining as a way to discern patterns or place the data in mathematical context.
 
@@ -22,7 +24,19 @@ cx - The x-axis coordinate of the center of the circle.
 cy - The y-axis coordinate of the center of the circle.
 r - The radius of the circle.
 
-SVG Coordinate Space works in the same way that mathematical graph coordinate space works except for two important features:
+SVG Coordinate Space works in the same way that mathematical graph coordinate space
+works except for two important features:
 1 - SVG Coordinate space has x=0 and y=0 coordinates fall on the top left.
 2 - SVG Coordinate space has the Y coordinate growing from top to bottom.
 Which means as Y increases, the coordinates move down, not up.
+
+D3.js has built in functionality to load in the following types of external resources:
+  an XMLHttpRequest
+  a text file
+  a JSON blob
+  an HTML document fragment
+  an XML document fragment
+  a comma-separated values (CSV) file
+  a tab-separated values (TSV) file
+Each of these resources will return data that D3.js can then use. The only thing to pay attention to is to
+make sure you construct an array out of the data.
