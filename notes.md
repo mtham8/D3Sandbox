@@ -111,7 +111,15 @@ L 60 75 - Draw a line to the point 60 75, from the previous point 10 75
 L 10 25 - Draw a line to the point 10 25, from the previous point 60 75
 Note - our letters (M, L) are capitalized which means that we were using absolute positioning within our SVG Viewing window.
 If we use lower case commands, then we will be using relative positioning.
-
+d3.svg.line - create a new line generator
+d3.svg.line.radial - create a new radial line generator
+d3.svg.area - create a new area generator
+d3.svg.area.radial - create a new radial area generator
+d3.svg.arc - create a new arc generator
+d3.svg.symbol - create a new symbol generator
+d3.svg.chord - create a new chord generator
+d3.svg.diagonal - create a new diagonal generator
+d3.svg.diagonal.radial - create a new radial diagonal generator
 
 
 

@@ -4,6 +4,8 @@ const app = {
     app.solidShape();
     app.shapeInsideShape();
     app.coordinateShape();
+    app.linePath();
+    app.dynamicSpace();
 
   },
 
@@ -23,9 +25,6 @@ const app = {
       // .enter() only allows chaining of append, insert, and select operators
 
     // CIRCLE:
-    // <svg width="50" height="50">
-    //   <circle cx="25" cy="25" r="25" fill="green" />
-    // </svg>
     d3.select("body")
       .append("div")
       .append("svg") // append an element as the last child of the element in the current selection
@@ -38,9 +37,6 @@ const app = {
       .style("fill", "#09765A");
 
     // SQUARE:
-    // <svg width="50" height="50">
-    //   <rect x="0" y="0" width="50" height="50" fill="green" />
-    // </svg>
     const bodySelection = d3.select("body");
     const svgSelection = bodySelection.append("div")
       .append("svg")
@@ -97,6 +93,42 @@ const app = {
       .attr("cy", (data) => { return data.yAxis; })
       .attr("r", 20)
       .style("fill", (data) => { return data.color })
+  },
+
+  linePath: () => {
+    // data for the line
+    let lineData = [
+    {"x": 1, "y": 5}, {"x": 20, "y": 20},
+    {"x": 40, "y": 10}, {"x": 60, "y": 40},
+    {"x": 80, "y": 5}, {"x": 100, "y": 60}
+    ];
+
+    // path generator
+    let lineFunction = d3.svg.line()
+      .x( d => { return d.x; })
+      .y( d => { return d.y; })
+      .interpolate("cardinal");
+      // .interpolate("linear") is in the accessor function tells the SVG Path to draw straight lines.
+
+    // svg container
+    let svgLine = d3.select("body").append("svg")
+      .attr("width", 200)
+      .attr("height", 200);
+
+    // line svg path
+      // .append("path") is used because we really only have one data object (a set of x,y coordinates),
+      // so we do not need to selectAll(), .enter(), append() like we have with other data sets.
+      // .attr("d", lineFunction(lineData)) is where the magic happens. This is where we send the data
+      // to the accessor function which returns the SVG Path Commands.
+    let lineGraph = svgLine.append("path")
+      .attr("d", lineFunction(lineData))
+      .attr("stroke", "#09765A")
+      .attr("stroke-width", 2)
+      .attr("fill", "none");
+  },
+
+  dynamicSpace: () => {
+
   }
 
 }
