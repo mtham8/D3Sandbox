@@ -6,7 +6,7 @@ const app = {
     app.coordinateShape();
     app.linePath();
     app.dynamicSpace();
-    app.scales()
+    app.scales();
 
   },
 
@@ -175,9 +175,11 @@ const app = {
   scales: () => {
     let initialData = [0, 1000, 3000, 2000, 5000, 4000, 7000, 6000, 9000, 8000, 10000]; // domain
     let newScaleData = []; // range
+    let max = d3.max(initialData);
+    let min = d3.min(initialData);
     // This constructs a new linear scale with the default domain [0,1] to range [0,1] which produces a mapping of 1:1
     let linearScale = d3.scale.linear()
-      .domain([0, 10000])
+      .domain([min, max])
       .range([0, 100]);
     for (let i = 0; i < initialData.length; i++) {
       newScaleData[i] = linearScale(initialData[i]);
