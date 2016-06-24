@@ -122,7 +122,17 @@ d3.svg.diagonal - create a new diagonal generator
 d3.svg.diagonal.radial - create a new radial diagonal generator
 
 
-
+SCALING:
+To do the transformation, we can follow this algorithm:
+Figure out what the largest number in the original interval is ( -> 10000 )
+Figure out what the smallest number in the original interval is ( -> 0)
+Figure out the difference between the two original interval numbers ( -> 10000 - 0 = 10000 )
+Figure out what the largest number in the new interval is ( -> 100 )
+Figure out what the smallest number in the new interval is ( -> 0 )
+Figure out the difference between the two new interval numbers ( -> 100 - 0 = 100 )
+Divide the original interval difference between the new interval difference ( -> 10000 / 100 = 100 )
+This tells us that 100 units of the original interval are equal to 1 unit of the new interval
+This is called a linear scaling (y = mx + b , where b=0 and m = 1/100)
 
 
 
