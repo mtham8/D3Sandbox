@@ -7,6 +7,7 @@ const app = {
     app.linePath();
     app.dynamicSpace();
     app.scales();
+    app.groupingEl();
 
   },
 
@@ -185,6 +186,49 @@ const app = {
       newScaleData[i] = linearScale(initialData[i]);
     }
     console.log(newScaleData);
+  },
+
+  // grouping elements that share the same attributes
+  // transform - to define a new coordinate system for set of svg elements by applying
+  // a transformation to each coordinate specified in this set of svg elements
+  groupingEl: () => {
+    let circleData = [
+    { "cx": 20, "cy": 20, "radius": 20, "color" : "#90CC54" },
+    { "cx": 70, "cy": 70, "radius": 20, "color" : "#B1DFF8" }
+    ];
+
+    let rectData = [
+    { "rx": 110, "ry": 110, "height": 30, "width": 30, "color" : "#09765A" },
+    { "rx": 160, "ry": 160, "height": 30, "width": 30, "color" : "#6BBFD5" }
+    ];
+
+    let svgContain = d3.select("body").append("svg")
+      .attr("width", 200)
+      .attr("height", 200);
+
+    let circleGroup = svgContain.append("g");
+    let rectGroup = svgContain.append("g");
+
+    let circles = circleGroup.selectAll("circle")
+      .data(circleData)
+      .enter()
+      .append("circle");
+
+    let circleAttr = circles.attr("cx", d => { return d.cx; })
+      .attr("cy", d => { return d.cy; })
+      .attr("r", d => { return d.radius; })
+      .style("fill", d => { return d.color; });
+
+    let rect = rectGroup.selectAll("rect")
+      .data(rectData)
+      .enter()
+      .append("rect");
+
+    let rectAttr = rect.attr("x", d => { return d.rx; })
+      .attr("y", d => { return d.ry; })
+      .attr("height", d => { return d.height; })
+      .attr("width", d => { return d.width; })
+      .style("fill", d => { return d.color; });
   }
 
 }

@@ -134,6 +134,24 @@ Divide the original interval difference between the new interval difference ( ->
 This tells us that 100 units of the original interval are equal to 1 unit of the new interval
 This is called a linear scaling (y = mx + b , where b=0 and m = 1/100)
 
+D3.js comes with Quantitative Scales (one of which we've already covered - Linear) and Ordinal Scales.
+
+The Quantitative scales have a continuous domain such as dates, times, real numbers, etc...
+The Ordinal scales are for discrete domains - like names, categories, colors, etc...
+The D3.js scales are:
+Identity: a special kind of linear scale, 1:1, good for pixel values. input == output
+Linear: transforms one value in the domain interval into a value in the range interval
+Power and Logarithmic scales: sqrt, pow, log – used for exponentially increasing values
+Quantize and Quantile scales: for discrete sets of unique possible values for inputs or outputs
+Ordinal: for non quantitative scales, like names, categories, etc
+
+SVG TRANSFORM ATTRIBUTE:
+<svg width="200" height="200">
+2  <g transform="translate(...) scale(...) rotate(...) translate(...) rotate(...)">
+3    ...
+4  </g>
+5</svg>
+
 
 
 
