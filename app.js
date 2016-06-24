@@ -128,6 +128,46 @@ const app = {
   },
 
   dynamicSpace: () => {
+  // manually adjusting svg container space
+    let jsonRect = [
+    { "x_axis": 10, "y_axis": 10, "height": 20, "width":20, "color" : "#90CC54" },
+    { "x_axis": 160, "y_axis": 40, "height": 20, "width":20, "color" : "#B1DFF8" },
+    { "x_axis": 70, "y_axis": 70, "height": 20, "width":20, "color" : "#09765A" }
+    ];
+    // variables to hold the updated coordinates
+    let max_x = 0;
+    let max_y = 0;
+
+    for (let i = 0; i < jsonRect.length; i++) {
+      let temp_x, temp_y;
+      // farthest right hand point
+      temp_x = jsonRect[i].x_axis + jsonRect[i].width;
+      // farthest bottom point
+      temp_y = jsonRect[i].y_axis + jsonRect[i].height;
+
+      if(temp_x >= max_x) {
+        max_x = temp_x;
+      }
+      if(temp_y >= max_y) {
+        max_y = temp_y;
+      }
+    }
+
+    let svgContainer = d3.select("body").append("svg")
+      .attr("width", max_x + 20)
+      .attr("height", max_y + 20);
+
+    let rectangles = svgContainer.selectAll("rect")
+        .data(jsonRect)
+        .enter()
+        .append("rect");
+
+    let rectangleAttributes = rectangles
+        .attr("x", (d) => { return d.x_axis; })
+        .attr("y", (d) => { return d.y_axis; })
+        .attr("height", (d) => { return d.height; })
+        .attr("width", (d) => { return d.width; })
+        .style("fill", (d) => { return d.color; });
 
   }
 
