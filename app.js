@@ -206,8 +206,8 @@ const app = {
       .attr("width", 200)
       .attr("height", 200);
 
-    let circleGroup = svgContain.append("g");
-    let rectGroup = svgContain.append("g");
+    let circleGroup = svgContain.append("g")
+      .attr("transform", "translate(80,0)");
 
     let circles = circleGroup.selectAll("circle")
       .data(circleData)
@@ -218,6 +218,8 @@ const app = {
       .attr("cy", d => { return d.cy; })
       .attr("r", d => { return d.radius; })
       .style("fill", d => { return d.color; });
+
+    let rectGroup = svgContain.append("g");
 
     let rect = rectGroup.selectAll("rect")
       .data(rectData)
