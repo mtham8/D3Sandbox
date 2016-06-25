@@ -9,6 +9,7 @@ const app = {
     app.scales();
     app.groupingEl();
     app.text();
+    app.axes();
 
   },
 
@@ -19,9 +20,8 @@ const app = {
       .enter()
       .append("p")
       .text( (data, i) => {
-        let bass = 808;
         let nectar;
-        nectar = 'This is i ' + i + ' ' + data + "-" + bass;
+        nectar = 'index ' + i + ' & ' + data;
         return nectar;
       })
       // the data operator .data(data) joins an array of data with the current selection
@@ -194,18 +194,19 @@ const app = {
   // a transformation to each coordinate specified in this set of svg elements
   groupingEl: () => {
     let circleData = [
-    { "cx": 20, "cy": 20, "radius": 20, "color" : "#90CC54" },
+    { "cx": 30, "cy": 30, "radius": 20, "color" : "#90CC54" },
     { "cx": 70, "cy": 70, "radius": 20, "color" : "#B1DFF8" }
     ];
 
     let rectData = [
     { "rx": 110, "ry": 110, "height": 30, "width": 30, "color" : "#09765A" },
-    { "rx": 160, "ry": 160, "height": 30, "width": 30, "color" : "#6BBFD5" }
+    { "rx": 150, "ry": 150, "height": 30, "width": 30, "color" : "#6BBFD5" }
     ];
 
     let svgContain = d3.select("body").append("svg")
       .attr("width", 200)
-      .attr("height", 200);
+      .attr("height", 200)
+      // .style("border", "1px solid black");
 
     let circleGroup = svgContain.append("g")
       .attr("transform", "translate(80,0)");
@@ -265,6 +266,23 @@ const app = {
       .attr("font-family", "'Helvetica', sans-serif")
       .attr("font-size", "12px")
       .attr("fill", "black");
+  },
+
+  axes: () => {
+    // svg viewport
+    let svgCont = d3.select("body").append("svg")
+      .attr("width", 400)
+      .attr("height", 100);
+    // scale for the axis
+    let aScale = d3.scale.linear()
+      .domain([0, 100])
+      .range([0, 400]);
+    // axis
+    let xAxis = d3.svg.axis()
+      .scale(aScale);
+    // group Element for the axis elements and call the xAxis function
+    let axisGroup = svgCont.append("g")
+      .call(xAxis)
   }
 
 }
