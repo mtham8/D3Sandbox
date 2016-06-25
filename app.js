@@ -8,6 +8,7 @@ const app = {
     app.dynamicSpace();
     app.scales();
     app.groupingEl();
+    app.text();
 
   },
 
@@ -231,6 +232,39 @@ const app = {
       .attr("height", d => { return d.height; })
       .attr("width", d => { return d.width; })
       .style("fill", d => { return d.color; });
+  },
+
+  text: () => {
+    let circleData = [
+    { "cx": 40, "cy": 40, "radius": 20, "color" : "#09765A" },
+    { "cx": 40, "cy": 100, "radius": 20, "color" : "#6BBFD5" }
+    ];
+
+    let svgContainer = d3.select('body').append("svg")
+      .attr("width", 200)
+      .attr("height", 200);
+
+    let circles = svgContainer.selectAll("circle")
+      .data(circleData)
+      .enter()
+      .append("circle");
+
+    let circleAttr = circles.attr("cx", d => { return d.cx; })
+      .attr("cy", d => { return d.cy; })
+      .attr("r", d => { return d.radius; })
+      .style("fill", d => { return d.color; });
+
+    let texts = svgContainer.selectAll("text")
+      .data(circleData)
+      .enter()
+      .append("text");
+
+    let textAttr = texts.attr("x", d => { return d.cx; })
+      .attr("y", d => { return d.cy; })
+      .text(d => { return "(" + d.cx + "," + d.cy + ")"; })
+      .attr("font-family", "'Helvetica', sans-serif")
+      .attr("font-size", "12px")
+      .attr("fill", "black");
   }
 
 }

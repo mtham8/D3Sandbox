@@ -146,6 +146,7 @@ Quantize and Quantile scales: for discrete sets of unique possible values for in
 Ordinal: for non quantitative scales, like names, categories, etc
 
 SVG TRANSFORM ATTRIBUTE:
+matrix, rotate, translate, scale, skewX, and skewY
 <svg width="200" height="200">
 2  <g transform="translate(...) scale(...) rotate(...) translate(...) rotate(...)">
 3    ...
