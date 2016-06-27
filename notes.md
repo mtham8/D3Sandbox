@@ -153,10 +153,48 @@ matrix, rotate, translate, scale, skewX, and skewY
 4  </g>
 5</svg>
 
+Styling SVG Elements
+SVG’s default style is a black fill with no stroke. If you want anything else, you’ll have to apply styles to your elements. Common SVG properties are:
+**fill** — A color value. Just as with CSS, colors can be specified as
+**named colors** — orange
+**hex values** — #3388aa or #38a
+**RGB values** — rgb(10, 150, 20)
+**RGB with alpha transparency** — rgba(10, 150, 20, 0.5)
+**stroke** — A color value.
+**stroke-width** — A numeric measurement (typically in pixels).
+**opacity** — A numeric value between 0.0 (completely transparent) and 1.0 (completely opaque).
+With text, you can also use these properties, which work just like in CSS:
+**font-family**
+**font-size**
 
+<circle cx="25" cy="25" r="22" class="pumpkin"/>
+.pumpkin {
+    fill: yellow;
+    stroke: orange;
+    stroke-width: 5;
+ }
+<circle cx="25" cy="25" r="20"
+        fill="rgba(128, 0, 128, 0.75)"
+        stroke="rgba(0, 255, 0, 0.25)" stroke-width="10"/>
+<circle cx="75" cy="25" r="20"
+        fill="rgba(0, 255, 0, 0.75)"
+        stroke="rgba(0, 0, 255, 0.25)" stroke-width="10"/>
+<circle cx="125" cy="25" r="20"
+        fill="rgba(255, 255, 0, 0.75)"
+        stroke="rgba(255, 0, 0, 0.25)" stroke-width="10"/>
 
-
-
+OPACITY:
+<circle cx="25" cy="25" r="20"
+        fill="rgba(128, 0, 128, 0.75)"
+        stroke="rgba(0, 255, 0, 0.25)" stroke-width="10"/>
+<circle cx="65" cy="25" r="20"
+        fill="rgba(128, 0, 128, 0.75)"
+        stroke="rgba(0, 255, 0, 0.25)" stroke-width="10"
+        opacity="0.5"/>
+<circle cx="105" cy="25" r="20"
+        fill="rgba(128, 0, 128, 0.75)"
+        stroke="rgba(0, 255, 0, 0.25)" stroke-width="10"
+        opacity="0.2"/>
 
 
 

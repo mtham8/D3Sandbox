@@ -11,6 +11,7 @@ const app = {
     app.text();
     app.axes();
     app.classes();
+    app.dataDriven();
 
   },
 
@@ -258,7 +259,7 @@ const app = {
 
     let textAttr = texts.attr("x", d => d.cx )
       .attr("y", d => d.cy )
-      .text(d => "(" + d.cx + "," + d.cy + ")" )
+      .text(d => "(" + d.cx + "," + d.cy + ")" + " coordinates" )
       .attr("font-family", "'Helvetica', sans-serif")
       .attr("font-size", "12px")
       .attr("fill", "black");
@@ -282,13 +283,42 @@ const app = {
   },
 
   classes: () => {
-    let dataset = [5, 10, 15, 20, 25];
-    let svgContainer = d3.select("body").selectAll("div")
+    // let dataset = [ 25, 7, 5, 26, 11, 8, 25, 14, 23, 19,
+    //             14, 11, 22, 29, 11 ];
+    let dataset = [];
+    for (var i = 0; i < 15; i++) {
+      let newNum = Math.random() * 30;
+      dataset.push(newNum);
+    }
+    let bars = d3.select("body").selectAll("div")
       .data(dataset)
       .enter()
       .append("div")
       .attr("class", "bar")
-      .style("height", d => d + "px")
+      .style("height", d => {
+        var barHeight = d * 5;
+        return barHeight + "px";
+      })
+  },
+
+  dataDriven: () => {
+    let data = [5, 10, 15, 20, 25];
+    let width = 500;
+    let height = 80;
+    let svg = d3.select("body").append("svg")
+      .attr("height", height)
+      .attr("width", width)
+    let circle = svg.selectAll("circle")
+      .data(data)
+      .enter()
+      .append("circle")
+    let attributes = circle.attr("cx", (d, i) => (i*50)+25 )
+      .attr("cy", height/2)
+      .attr("r", d => d )
+      .attr("fill", "#09765A")
+      .attr("stroke", "#6BBFD5")
+      .attr("stroke-width", d => d/2 )
+      .attr("opacity", d => d/20 );
   }
 
 }
