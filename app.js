@@ -10,6 +10,7 @@ const app = {
     app.groupingEl();
     app.text();
     app.axes();
+    app.classes();
 
   },
 
@@ -19,17 +20,13 @@ const app = {
       .data(storage)
       .enter()
       .append("p")
-      .text( (data, i) => {
-        let nectar;
-        nectar = 'index ' + i + ' & ' + data;
-        return nectar;
-      })
+      .text( (data, i) => nectar = 'index ' + i + ' & ' + data )
       // the data operator .data(data) joins an array of data with the current selection
       // .enter() only allows chaining of append, insert, and select operators
 
     // CIRCLE:
     d3.select("body")
-      .append("div")
+      .append("p")
       .append("svg") // append an element as the last child of the element in the current selection
       .attr("width", 30) // add on attributes
       .attr("height", 30)
@@ -41,7 +38,7 @@ const app = {
 
     // SQUARE:
     const bodySelection = d3.select("body");
-    const svgSelection = bodySelection.append("div")
+    const svgSelection = bodySelection.append("p")
       .append("svg")
       .attr("width", 30)
       .attr("height", 30)
@@ -70,12 +67,8 @@ const app = {
       .append("circle");
     let circleAttributes = circles.attr("cx", 50)
       .attr("cy", 50)
-      .attr("r", (data) => {
-        return data.r;
-      })
-      .style("fill", (data) => {
-        return data.color;
-      })
+      .attr("r", data => data.r )
+      .style("fill", data => data.color )
   },
 
   coordinateShape: () => {
@@ -92,10 +85,10 @@ const app = {
       .data(spaceCircles)
       .enter()
       .append("circle");
-    let circleAttr = circle.attr("cx", (data) => { return data.xAxis; })
-      .attr("cy", (data) => { return data.yAxis; })
+    let circleAttr = circle.attr("cx", data => data.xAxis )
+      .attr("cy", data => data.yAxis )
       .attr("r", 20)
-      .style("fill", (data) => { return data.color })
+      .style("fill", data => data.color )
   },
 
   linePath: () => {
@@ -110,8 +103,8 @@ const app = {
 
     // path generator
     let lineFunction = d3.svg.line()
-      .x( d => { return d.x; })
-      .y( d => { return d.y; })
+      .x( d => d.x )
+      .y( d => d.y )
       .interpolate("cardinal");
       // .interpolate("linear") is in the accessor function tells the SVG Path to draw straight lines.
 
@@ -168,11 +161,11 @@ const app = {
         .append("rect");
 
     let rectangleAttributes = rectangles
-        .attr("x", (d) => { return d.x_axis; })
-        .attr("y", (d) => { return d.y_axis; })
-        .attr("height", (d) => { return d.height; })
-        .attr("width", (d) => { return d.width; })
-        .style("fill", (d) => { return d.color; });
+        .attr("x", d => d.x_axis )
+        .attr("y", d => d.y_axis )
+        .attr("height", d => d.height )
+        .attr("width", d => d.width )
+        .style("fill", d => d.color );
 
   },
 
@@ -185,6 +178,7 @@ const app = {
     let linearScale = d3.scale.linear()
       .domain([min, max])
       .range([0, 100]);
+
     for (let i = 0; i < initialData.length; i++) {
       newScaleData[i] = linearScale(initialData[i]);
     }
@@ -218,10 +212,10 @@ const app = {
       .enter()
       .append("circle");
 
-    let circleAttr = circles.attr("cx", d => { return d.cx; })
-      .attr("cy", d => { return d.cy; })
-      .attr("r", d => { return d.radius; })
-      .style("fill", d => { return d.color; });
+    let circleAttr = circles.attr("cx", d => d.cx )
+      .attr("cy", d => d.cy )
+      .attr("r", d => d.radius )
+      .style("fill", d => d.color );
 
     let rectGroup = svgContain.append("g");
 
@@ -230,11 +224,11 @@ const app = {
       .enter()
       .append("rect");
 
-    let rectAttr = rect.attr("x", d => { return d.rx; })
-      .attr("y", d => { return d.ry; })
-      .attr("height", d => { return d.height; })
-      .attr("width", d => { return d.width; })
-      .style("fill", d => { return d.color; });
+    let rectAttr = rect.attr("x", d => d.rx )
+      .attr("y", d => d.ry )
+      .attr("height", d => d.height )
+      .attr("width", d => d.width )
+      .style("fill", d => d.color );
   },
 
   text: () => {
@@ -252,19 +246,19 @@ const app = {
       .enter()
       .append("circle");
 
-    let circleAttr = circles.attr("cx", d => { return d.cx; })
-      .attr("cy", d => { return d.cy; })
-      .attr("r", d => { return d.radius; })
-      .style("fill", d => { return d.color; });
+    let circleAttr = circles.attr("cx", d => d.cx )
+      .attr("cy", d => d.cy )
+      .attr("r", d => d.radius )
+      .style("fill", d => d.color );
 
     let texts = svgContainer.selectAll("text")
       .data(circleData)
       .enter()
       .append("text");
 
-    let textAttr = texts.attr("x", d => { return d.cx; })
-      .attr("y", d => { return d.cy; })
-      .text(d => { return "(" + d.cx + "," + d.cy + ")"; })
+    let textAttr = texts.attr("x", d => d.cx )
+      .attr("y", d => d.cy )
+      .text(d => "(" + d.cx + "," + d.cy + ")" )
       .attr("font-family", "'Helvetica', sans-serif")
       .attr("font-size", "12px")
       .attr("fill", "black");
@@ -273,7 +267,7 @@ const app = {
   axes: () => {
     // svg viewport
     let svgCont = d3.select("body").append("svg")
-      .attr("width", 400)
+      .attr("width", 500)
       .attr("height", 100);
     // scale for the axis
     let aScale = d3.scale.linear()
@@ -285,6 +279,16 @@ const app = {
     // group Element for the axis elements and call the xAxis function
     let axisGroup = svgCont.append("g")
       .call(xAxis)
+  },
+
+  classes: () => {
+    let dataset = [5, 10, 15, 20, 25];
+    let svgContainer = d3.select("body").selectAll("div")
+      .data(dataset)
+      .enter()
+      .append("div")
+      .attr("class", "bar")
+      .style("height", d => d + "px")
   }
 
 }
