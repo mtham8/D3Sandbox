@@ -352,6 +352,9 @@ const app = {
       ];
     let w = 600;
     let h = 100;
+    let rScale = d3.scaleLinear()
+                     .domain([0, d3.max(dataset, d => d[1]) ])
+                     .range([2, 5]);
     // create svg element
     let svg = d3.select("body").append("svg").attr("height", h).attr("width", w);
     let circles = svg.selectAll("circle")
@@ -360,7 +363,7 @@ const app = {
       .append("circle")
       .attr("cx", d => d[0])
       .attr("cy", d => d[1])
-      .attr("r", d => Math.sqrt(h - d[1])) // radius corresponds to y-axis
+      .attr("r", d => rScale(d[1])) // radius corresponds to y-axis
       .attr("fill", "#09765A")
 
     let texts = svg.selectAll("text")
