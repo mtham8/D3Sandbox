@@ -6,7 +6,7 @@ const app = {
     app.coordinateShape();
     // app.linePath();
     app.dynamicSpace();
-    // app.scales();
+    app.scales();
     app.groupingEl();
     app.text();
     // app.axes();
@@ -171,21 +171,21 @@ const app = {
 
   },
 
-  // scales: () => {
-  //   let initialData = [0, 1000, 3000, 2000, 5000, 4000, 7000, 6000, 9000, 8000, 10000]; // domain
-  //   let newScaleData = []; // range
-  //   let max = d3.max(initialData);
-  //   let min = d3.min(initialData);
-  //   // This constructs a new linear scale with the default domain [0,1] to range [0,1] which produces a mapping of 1:1
-  //   let linearScale = d3.scale.linear()
-  //     .domain([min, max])
-  //     .range([0, 100]);
+  scales: () => {
+    let initialData = [0, 1000, 3000, 2000, 5000, 4000, 7000, 6000, 9000, 8000, 10000]; // domain
+    let newScaleData = []; // range
+    let max = d3.max(initialData);
+    let min = d3.min(initialData);
+    // This constructs a new linear scale with the default domain [0,1] to range [0,1] which produces a mapping of 1:1
+    let linearScale = d3.scaleLinear()
+      .domain([min, max])
+      .range([0, 100]);
 
-  //   for (let i = 0; i < initialData.length; i++) {
-  //     newScaleData[i] = linearScale(initialData[i]);
-  //   }
-  //   console.log(newScaleData);
-  // },
+    for (let i = 0; i < initialData.length; i++) {
+      newScaleData[i] = linearScale(initialData[i]);
+    }
+    console.log(newScaleData);
+  },
 
   // grouping elements that share the same attributes
   // transform - to define a new coordinate system for set of svg elements by applying
@@ -354,7 +354,7 @@ const app = {
       .append("circle")
       .attr("cx", d => d[0])
       .attr("cy", d => d[1])
-      .attr("r", 5)
+      .attr("r", d => Math.sqrt(h - d[1])) // radius corresponds to y-axis
       .attr("fill", "#09765A")
 
     let texts = svg.selectAll("text")
