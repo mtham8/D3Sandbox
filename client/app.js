@@ -9,7 +9,7 @@ const app = {
     app.scales();
     app.groupingEl();
     app.text();
-    // app.axes();
+    app.axes();
     app.barGraph();
     app.opacity();
     app.scatterplot();
@@ -180,6 +180,7 @@ const app = {
     let linearScale = d3.scaleLinear()
       .domain([min, max])
       .range([0, 100]);
+    console.log('this is linearScale', linearScale)
 
     for (let i = 0; i < initialData.length; i++) {
       newScaleData[i] = linearScale(initialData[i]);
@@ -266,22 +267,27 @@ const app = {
       .attr("fill", "black");
   },
 
-  // axes: () => {
-  //   // svg viewport
-  //   let svgCont = d3.select("body").append("svg")
-  //     .attr("width", 500)
-  //     .attr("height", 100);
-  //   // scale for the axis
-  //   let aScale = d3.scale.linear()
-  //     .domain([0, 100])
-  //     .range([0, 400]);
-  //   // axis
-  //   let xAxis = d3.svg.axis()
-  //     .scale(aScale);
-  //   // group Element for the axis elements and call the xAxis function
-  //   let axisGroup = svgCont.append("g")
-  //     .call(xAxis)
-  // },
+  axes: () => {
+    let initialData = [0, 1000, 3000, 2000, 5000, 4000, 7000, 6000, 9000, 8000, 10000];
+    let min = d3.min(initialData);
+    let max = d3.max(initialData);
+    // scale for the axis
+    let aScale = d3.scaleLinear()
+      .domain([min, max])
+      .range([0, 400]);
+    // // svg viewport
+    let svgCont = d3.select("body").append("svg")
+      .attr("width", 500)
+      .attr("height", 100);
+    // axis
+    // let xAxis = d3.svg.axis()
+    //   .scale(aScale);
+    let xAxis = svgCont.append("g")
+      .call(d3.axisBottom(aScale));
+    // group Element for the axis elements and call the xAxis function
+    // let axisGroup = svgCont.append("g")
+    //   .call(xAxis)
+  },
 
   barGraph: () => {
     let dataset = [ 5, 10, 13, 19, 21, 25, 22, 18, 15, 13,
