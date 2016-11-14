@@ -1,4 +1,4 @@
-document.body.innerHTML = `<h1>D3 version: ${d3.version}</h1>`;
+// document.body.innerHTML = `<h1>D3 version: ${d3.version}</h1>`;
 
 // linear scale ==> takes a continous input `domain` and maps it to a continuous output `range`, while maintaining proportions
 const linearScale = d3.scaleLinear()
@@ -58,5 +58,42 @@ const dataJSON = d3.json('data.json', data => {
   // console.log('this is set of unique values ==> ', ages.values())
 })
 // console.log(dataJSON)
+
+const div = d3.select('div')
+// to select multiple items ==> d3.selectAll
+// console.log(div.nodes())
+const divLinks = div.selectAll('a')
+// console.log(divLinks.nodes())
+// alternatively ==> console.log(d3.selectAll('div a').nodes()) // [a, a, a]
+const actionLink = d3.select('.action')
+// console.log(actionLink.nodes())
+const secondLink = d3.select('a:nth-child(2)')
+// add an attribute to an element
+secondLink.attr('href', 'http://google.com')
+console.log(secondLink.nodes())
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
