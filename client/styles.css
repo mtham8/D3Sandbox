@@ -15,3 +15,7 @@ div {
 a {
   display: block;
 }
+
+.red {
+  color: red;
+}
