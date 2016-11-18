@@ -7,15 +7,17 @@ h3 {
   text-align: center;
 }
 
-div {
-  display: inline-block;
-  border: 1px solid black;
-}
-
 a {
   display: block;
 }
 
 .red {
   color: red;
+}
+
+.chart {
+  background: lightgray;
+  border: 1px solid black;
+  min-width: 200px;
+  min-height: 350px;
 }

@@ -111,10 +111,27 @@ d3.select('.title')
     .text('submit')
 
 // ======= START VISUALIZING D3 ===========
+const scores = [
+  {name: 'Alice', score: 96},
+  {name: 'Billy', score: 83},
+  {name: 'Cindy', score: 91},
+  {name: 'David', score: 96},
+  {name: 'Emily', score: 88},
+]
 
+const update = d3.select('.chart')
+  .selectAll('div')
+  .data(scores, function(d){
+    return d ? d.name : this.innerText
+  }) // to make sure data already on the DOM doesn't get repeated
+  .style('color', 'blue')
 
+update.enter()
+  .append('div') // this tells d3 to append a div to each of the data items that aren't appended to an element
+  .text(d => d.name)
+    .style('color', 'green')
 
-
+update.exit().remove()
 
 
 
