@@ -1,4 +1,4 @@
-// document.body.innerHTML = `<h1>D3 version: ${d3.version}</h1>`;
+// import { linearScale } from 'convert-input'
 
 // ======= CONVERT INPUT DATA TO OUTPUT VALUES ===========
 // linear scale ==> takes a continous input `domain` and maps it to a continuous output `range`, while maintaining proportions
