@@ -5,8 +5,7 @@ import { ordinalScale } from './ordinal-scale'
 import { dataJSON } from './load-data'
 import './modify-dom'
 import './start-visual'
-import './output-svg'
-
+import { bar } from './output-svg'
 
 
 

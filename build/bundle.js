@@ -67,7 +67,7 @@
 	
 	__webpack_require__(8);
 	
-	__webpack_require__(9);
+	var _outputSvg = __webpack_require__(9);
 
 /***/ },
 /* 2 */
@@ -232,12 +232,18 @@
 
 	'use strict';
 	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.bar = undefined;
+	
 	var _startVisual = __webpack_require__(8);
 	
 	// ======= OUTPUT SVG ELEMENTS WITH D3V4 ===========
 	// ======= SVG GRAPHIC CONTAINERS AND TEXT ELEMENTS ===========
+	// ======= BASIC INTERACTIVITY WITH D3V4 ===========
 	
-	var bar = d3.select('.chart').append('svg') // create svg container
+	var bar = exports.bar = d3.select('.chart').append('svg') // create svg container
 	.attr('width', 225).attr('height', 300).selectAll('g') // create a collection of g elements
 	.data(_startVisual.scores).enter().append('g').attr('transform', function (d, i) {
 	  return 'translate(0,' + i * 33 + ')';
@@ -246,7 +252,17 @@
 	// append rectangle and text to g elements
 	bar.append('rect').style('width', function (d) {
 	  return d.score;
-	}).attr('class', 'bar');
+	}).attr('class', 'bar').on('mouseover', function (d, i, elements) {
+	  d3.select(this).style('transform', 'scaleX(2)'); // increase the bar width on hover
+	  d3.selectAll(elements) // get all elements not on hover to lose opacity
+	  .filter(':not(:hover)').style('fill-opacity', 0.5);
+	  // d3.select(this).classed('bar-on', true)
+	}).on('mouseout', function (d, i, elements) {
+	  d3.select(this).style('transform', 'scaleX(1)'); // scale it back to normal when exit
+	  d3.selectAll(elements) // restore opacity when nothing is hovered
+	  .style('fill-opacity', 1);
+	  // d3.select(this).classed('bar-on', false)
+	});
 	
 	bar.append('text').attr('y', 20) // distance from top of element
 	.attr('x', 5) // distance from left of element
