@@ -70,6 +70,8 @@
 	__webpack_require__(9);
 	
 	__webpack_require__(10);
+	
+	__webpack_require__(11);
 
 /***/ },
 /* 2 */
@@ -258,30 +260,67 @@
 	  return selection.style('fill', color);
 	};
 	
-	var bar = d3.select('.chart').append('svg') // create svg container
-	.attr('width', 225).attr('height', 300).selectAll('g') // create a collection of g elements
-	.data(_startVisual.scores).enter().append('g').attr('transform', function (d, i) {
-	  return 'translate(0,' + i * 33 + ')';
-	});
-	
+	/*
+	const bar = d3.select('.chart')
+	  .append('svg') // create svg container
+	    .attr('width', 225)
+	    .attr('height', 300)
+	  .selectAll('g') // create a collection of g elements
+	  .data(scores)
+	  .enter()
+	    .append('g')
+	    .attr('transform', (d, i) => `translate(0,${i*33})`)
+
 	// append rectangle and text to g elements
-	bar.append('rect').style('width', function (d) {
-	  return d.score;
-	}).attr('class', 'bar').on('mouseover', function (d, i, elements) {
-	  d3.select(this).call(scaleBar, 2).call(setFill, 'teal');
+	bar.append('rect')
+	    .style('width', d => d.score)
+	    .attr('class', 'bar')
+	    .on('mouseover', function(d, i, elements){
+	      d3.select(this)
+	        .call(scaleBar, 2)
+	        .call(setFill, 'teal')
+
+	      d3.selectAll(elements)
+	        .filter(':not(:hover)')
+	        .call(fade, 0.5)
+	    })
+	    .on('mouseout', function(d, i, elements){
+	      d3.select(this).call(scaleBar, 1)
+
+	      d3.selectAll(elements)
+	        .call(fade, 1)
+	        .call(setFill, 'lightgreen')
+	    })
+
+	bar.append('text')
+	  .attr('y', 20) // distance from top of element
+	  .attr('x', 5) // distance from left of element
+	  .text(d => d.name)
+	*/
+
+/***/ },
+/* 11 */
+/***/ function(module, exports) {
+
+	'use strict';
 	
-	  d3.selectAll(elements).filter(':not(:hover)').call(fade, 0.5);
-	}).on('mouseout', function (d, i, elements) {
-	  d3.select(this).call(scaleBar, 1);
+	// ======= MARGIN CONVENTION ===========
 	
-	  d3.selectAll(elements).call(fade, 1).call(setFill, 'lightgreen');
-	});
+	var margin = {
+	  top: 0,
+	  right: 0,
+	  bottom: 25,
+	  left: 25
+	};
 	
-	bar.append('text').attr('y', 20) // distance from top of element
-	.attr('x', 5) // distance from left of element
-	.text(function (d) {
-	  return d.name;
-	});
+	var width = 425 - margin.left - margin.right;
+	var height = 625 - margin.top - margin.bottom;
+	
+	var svg = d3.select('.chart').append('svg').attr('width', width + margin.left + margin.right).attr('height', height + margin.left + margin.right).append('g').attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')');
+	
+	svg.append('rect').attr('width', width / 2).attr('height', height).style('fill', 'lightblue').style('stroke', 'green');
+	
+	svg.append('rect').attr('x', width / 2).attr('width', width / 2).attr('height', height).style('fill', 'peru').style('stroke', 'green');
 
 /***/ }
 /******/ ]);

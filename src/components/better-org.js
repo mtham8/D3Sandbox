@@ -8,6 +8,7 @@ const fade = (selection, opacity) => selection.style('fill-opacity', opacity)
 
 const setFill = (selection, color) => selection.style('fill', color)
 
+/*
 const bar = d3.select('.chart')
   .append('svg') // create svg container
     .attr('width', 225)
@@ -43,3 +44,4 @@ bar.append('text')
   .attr('y', 20) // distance from top of element
   .attr('x', 5) // distance from left of element
   .text(d => d.name)
+*/
