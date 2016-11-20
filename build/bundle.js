@@ -199,8 +199,11 @@
 
 	'use strict';
 	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 	// ======= START VISUALIZING D3 ===========
-	var scores = [{ name: 'Alice', score: 96 }, { name: 'Billy', score: 83 }, { name: 'Cindy', score: 91 }, { name: 'David', score: 96 }, { name: 'Emily', score: 88 }];
+	var scores = exports.scores = [{ name: 'Alice', score: 96 }, { name: 'Billy', score: 83 }, { name: 'Cindy', score: 91 }, { name: 'David', score: 96 }, { name: 'Emily', score: 88 }];
 	/*
 	const update = d3.select('.chart')
 	  .selectAll('div')
@@ -229,7 +232,16 @@
 
 	'use strict';
 	
-	__webpack_require__(8);
+	var _startVisual = __webpack_require__(8);
+	
+	// ======= OUTPUT SVG ELEMENTS WITH D3V4 ===========
+	d3.select('.chart').append('svg').attr('width', 225).attr('height', 300).selectAll('rect').data(_startVisual.scores).enter().append('rect').attr('y', function (d, i) {
+	  return i * 33;
+	}).style('width', function (d) {
+	  return d.score;
+	}).text(function (d) {
+	  return d.name;
+	}).attr('class', 'bar');
 
 /***/ }
 /******/ ]);

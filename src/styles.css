@@ -21,3 +21,11 @@ a {
   min-width: 200px;
   min-height: 350px;
 }
+
+.bar {
+  height: 31px;
+  color: green;
+  fill: lightgreen;
+  stroke: black;
+  stroke-width: 1;
+}

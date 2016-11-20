@@ -1,5 +1,5 @@
 // ======= START VISUALIZING D3 ===========
-const scores = [
+export const scores = [
   {name: 'Alice', score: 96},
   {name: 'Billy', score: 83},
   {name: 'Cindy', score: 91},
