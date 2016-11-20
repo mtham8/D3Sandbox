@@ -235,13 +235,24 @@
 	var _startVisual = __webpack_require__(8);
 	
 	// ======= OUTPUT SVG ELEMENTS WITH D3V4 ===========
-	d3.select('.chart').append('svg').attr('width', 225).attr('height', 300).selectAll('rect').data(_startVisual.scores).enter().append('rect').attr('y', function (d, i) {
-	  return i * 33;
-	}).style('width', function (d) {
+	// ======= SVG GRAPHIC CONTAINERS AND TEXT ELEMENTS ===========
+	
+	var bar = d3.select('.chart').append('svg') // create svg container
+	.attr('width', 225).attr('height', 300).selectAll('g') // create a collection of g elements
+	.data(_startVisual.scores).enter().append('g').attr('transform', function (d, i) {
+	  return 'translate(0,' + i * 33 + ')';
+	});
+	
+	// append rectangle and text to g elements
+	bar.append('rect').style('width', function (d) {
 	  return d.score;
-	}).text(function (d) {
-	  return d.name;
 	}).attr('class', 'bar');
+	
+	bar.append('text').attr('y', 20) // distance from top of element
+	.attr('x', 5) // distance from left of element
+	.text(function (d) {
+	  return d.name;
+	});
 
 /***/ }
 /******/ ]);
