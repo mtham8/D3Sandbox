@@ -1,3 +1,4 @@
+import { setFill } from './better-org'
 // ======= MARGIN CONVENTION ===========
 
 const margin = {
@@ -20,12 +21,12 @@ const container = d3.select('.chart')
 container.append('rect')
   .attr('width', width/2)
   .attr('height', height)
-  .style('fill', 'lightblue')
+  .call(setFill, 'lightblue')
   .style('stroke', 'green')
 
 container.append('rect')
   .attr('x', width/2)
   .attr('width', width/2)
   .attr('height', height)
-  .style('fill', 'peru')
+  .call(setFill, 'peru')
   .style('stroke', 'green')
