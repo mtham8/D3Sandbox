@@ -12,7 +12,7 @@ export const bar = d3.select('.chart')
   .data(scores)
   .enter()
     .append('g')
-    .attr('transform', (d, i) => `translate(0,${i*33})`)
+    .attr('transform', (d, i) => `translate(0,${i*33})`) // you have to transform the element to the position you want it
 
 // append rectangle and text to g elements
 bar.append('rect')
@@ -37,4 +37,3 @@ bar.append('text')
   .attr('x', 5) // distance from left of element
   .text(d => d.name)
 */
-
