@@ -16,3 +16,7 @@ import './line-chart'
 import './area-chart'
 import './debug-d3'
 import './animate-transition'
+import { go, goNow } from './reuse-transition'
+
+$('.go').click( cb => go() )
+$('.goNow').click( cb => goNow() )

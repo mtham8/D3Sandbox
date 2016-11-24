@@ -82,6 +82,21 @@
 	__webpack_require__(15);
 	
 	__webpack_require__(16);
+	
+	__webpack_require__(17);
+	
+	__webpack_require__(18);
+	
+	__webpack_require__(19);
+	
+	var _reuseTransition = __webpack_require__(20);
+	
+	$('.go').click(function (cb) {
+	  return (0, _reuseTransition.go)();
+	});
+	$('.goNow').click(function (cb) {
+	  return (0, _reuseTransition.goNow)();
+	});
 
 /***/ },
 /* 2 */
@@ -528,64 +543,80 @@
 	var _betterOrg = __webpack_require__(10);
 	
 	var _responsiveView = __webpack_require__(13);
+
+/***/ },
+/* 17 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
 	
-	// ======= LINE CHART ===========
+	var _betterOrg = __webpack_require__(10);
 	
-	var margin = {
-	  top: 10,
-	  right: 20,
-	  bottom: 60,
-	  left: 30
-	};
-	var width = 400 - margin.left - margin.right;
-	var height = 565 - margin.top - margin.bottom;
+	var _responsiveView = __webpack_require__(13);
+
+/***/ },
+/* 18 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
 	
-	var svg = d3.select('.chart').append('svg').attr('width', width + margin.left + margin.right).attr('height', height + margin.left + margin.right).call(_responsiveView.responsivefy).append('g').attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')');
+	var _betterOrg = __webpack_require__(10);
 	
-	d3.json('../line-data.json', function (err, data) {
-	  var parseTime = d3.timeParse('%Y/%m/%d');
+	var _responsiveView = __webpack_require__(13);
+
+/***/ },
+/* 19 */
+/***/ function(module, exports) {
+
+	// ======= ANIMATE TRANSITIONS ===========
 	
-	  data.forEach(function (company) {
-	    company.values.forEach(function (d) {
-	      d.date = parseTime(d.date);
-	      d.close = +d.close;
-	    });
-	  });
+	/*
+	d3.select('#block')
+	  .transition()
+	    .duration(600)
+	    .delay(750)
+	    .ease(d3.easeCubicOut)
+	    .style('width', '400px')
+	  .transition()
+	    .duration(500)
+	    .ease(d3.easeCubicOut)
+	    .style('height', '600px')
+	  .transition()
+	    .duration(2000)
+	    .style('background-color', 'teal')
+	*/
+	"use strict";
+
+/***/ },
+/* 20 */
+/***/ function(module, exports) {
+
+	'use strict';
 	
-	  var xScale = d3.scaleTime().domain([d3.min(data, function (co) {
-	    return d3.min(co.values, function (d) {
-	      return d.date;
-	    });
-	  }), d3.max(data, function (co) {
-	    return d3.max(co.values, function (d) {
-	      return d.date;
-	    });
-	  })]).range([0, width]);
-	  svg.append('g').attr('transform', 'translate(0, ' + height + ')').call(d3.axisBottom(xScale).ticks(5));
-	
-	  var yScale = d3.scaleLinear().domain([d3.min(data, function (co) {
-	    return d3.min(co.values, function (d) {
-	      return d.close;
-	    });
-	  }), d3.max(data, function (co) {
-	    return d3.max(co.values, function (d) {
-	      return d.close;
-	    });
-	  })]).range([height, 0]);
-	  svg.append('g').call(d3.axisLeft(yScale));
-	
-	  var line = d3.line().x(function (d) {
-	    return xScale(d.date);
-	  }).y(function (d) {
-	    return yScale(d.close);
-	  }).curve(d3.curveCatmullRom.alpha(0.5)); // round out the ridged lines
-	
-	  svg.selectAll('.line').data(data).enter().append('path').attr('class', 'line').attr('d', function (d) {
-	    return line(d.values);
-	  }).style('stroke', function (d, i) {
-	    return ['#FF9900', '#3369E8'][i];
-	  }).style('stroke-width', 2).call(_betterOrg.setFill, 'none');
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
 	});
+	// ======= REUSE TRANSITIONS ===========
+	
+	
+	var go = exports.go = function go() {
+	  var t = d3.transition().delay(1000).duration(1000);
+	
+	  d3.selectAll('.block').transition(t).style('width', '400px');
+	
+	  d3.select('.a').transition(t).style('background-color', 'orange');
+	
+	  d3.select('.b').transition(t).style('background-color', 'blue');
+	};
+	
+	var configure = function configure(t, delay, duration) {
+	  return t.delay(delay).duration(duration);
+	};
+	
+	// properly pass in transiton into elements
+	var goNow = exports.goNow = function goNow(cb) {
+	  return d3.selectAll('.block').transition().call(configure, 1000, 1000).style('height', '300px');
+	};
 
 /***/ }
 /******/ ]);
