@@ -5,6 +5,8 @@
 import { setFill, fade } from './better-org'
 import { responsivefy } from './responsive-view'
 
+/*
+
 const margin = {
   top: 10,
   right: 20,
@@ -70,3 +72,5 @@ d3.json('../line-data.json', (err, data) => {
     .call(setFill, (d, i) => ['#FF9900', '#3369E8'][i])
     .call(fade, 0.5)
 })
+
+*/
