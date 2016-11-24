@@ -43,3 +43,17 @@ rect {
 rect:hover {
   fill: turquoise;
 }
+
+.ball {
+  fill: steelblue;
+  fill-opacity: 0.35;
+  stroke: steelblue;
+  stroke-width: 2;
+}
+
+#block {
+  background: lightgray;
+  border: 1px solid black;
+  width: 100px;
+  height: 100px;
+}
