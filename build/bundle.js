@@ -74,6 +74,8 @@
 	__webpack_require__(11);
 	
 	__webpack_require__(12);
+	
+	__webpack_require__(13);
 
 /***/ },
 /* 2 */
@@ -320,38 +322,72 @@
 	'use strict';
 	
 	var _betterOrg = __webpack_require__(10);
+
+/***/ },
+/* 13 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _betterOrg = __webpack_require__(10);
 	
 	var margin = {
 	  top: 10,
 	  right: 0,
 	  bottom: 60,
 	  left: 40
-	}; // ======= CREATE CHART AXES WITH D3V4 ===========
+	};
 	
-	// same example from margin-convention
+	// svg = d3.select('svg')
+	// ======= MAKE D3V4 CHARTS RESPONSIVE WITH viewBox ATTRIBUTE ===========
+	// understanding svg coordinates and transform ==> https://sarasoueidan.com/blog/svg-coordinate-systems/
+	// same example from chart-axes
+	
+	/**
+	 * viewBox = <min-x> <min-y> <width> <height>
+	 */
+	
+	var responsivefy = function responsivefy(svg) {
+	  // get container + svg aspect ratio
+	  var container = d3.select(svg.node().parentNode),
+	      width = parseInt(svg.style('width')),
+	      height = parseInt(svg.style('height')),
+	      aspect = width / height;
+	
+	  // get width of container and resize svg to fit it
+	  var resize = function resize(cb) {
+	    var targetWidth = parseInt(container.style('width'));
+	    svg.attr('width', targetWidth);
+	    svg.attr('height', Math.round(targetWidth / aspect));
+	  };
+	
+	  // add viewBox and preserveAspectRatio properties,
+	  // and call resize so that svg resizes on intial page load
+	  svg.attr('viewBox', '0 0 ' + width + ' ' + height).attr('preserveAspectRatio', 'xMinYMid').call(resize);
+	
+	  // to register multiple listeners for same event type,
+	  // you need to add namespace, ie., 'click.foo'
+	  // necessary if you call invoke this function for multiple svg
+	  // api docs: https://github.com/mbostock/d3/wiki/Selection#on
+	  d3.select(window).on('resize.' + container + '.attr(\'id\')', resize);
+	};
 	
 	var width = 425 - margin.left - margin.right;
 	var height = 625 - margin.top - margin.bottom;
 	
-	var container = d3.select('.chart').append('svg').attr('width', width + margin.left + margin.right).attr('height', height + margin.left + margin.right).append('g').attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')');
+	var svg = d3.select('.chart').append('svg').attr('width', width + margin.left + margin.right).attr('height', height + margin.left + margin.right).call(responsivefy).append('g').attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')');
 	
-	container.append('rect').attr('width', width).attr('height', height).call(_betterOrg.setFill, 'lightblue').style('stroke', 'green');
+	svg.append('rect').attr('width', width).attr('height', height).call(_betterOrg.setFill, 'lightblue').style('stroke', 'green');
 	
-	var yScale = d3.scaleLinear().domain([0, 100]).range([height, 0]); // y dimension runs from top to bottom
-	
-	// d3 makes creates its own ticks unless specified ==> d3.axisLeft(yScale).ticks(5, '.2s')
-	// absolute control on ticks ==> d3.axisLeft(yScale).tickValues([8, 19, 43, 77])
+	var yScale = d3.scaleLinear().domain([0, 100]).range([height, 0]);
 	var yAxis = d3.axisLeft(yScale);
-	container.call(yAxis);
+	svg.call(yAxis);
 	
 	var xScale = d3.scaleTime().domain([new Date(2016, 0, 1, 6), new Date(2016, 0, 1, 9)]).range([0, width]);
-	
-	// ticks for every 45 mins ==> const xAxis = d3.axisBottom(xScale).ticks(d3.timeMinute.every(45))
-	var xAxis = d3.axisBottom(xScale).ticks(5).tickSizeInner(10).tickSizeOuter(20) // longer ticks on the outside
-	.tickPadding(15); // so that all the numbers are aligned
+	var xAxis = d3.axisBottom(xScale).ticks(5);
 	
 	// get the scale to the bottom of the chart
-	container.append('g').attr('transform', 'translate(0, ' + height + ')').call(xAxis);
+	svg.append('g').attr('transform', 'translate(0, ' + height + ')').call(xAxis);
 
 /***/ }
 /******/ ]);

@@ -18,8 +18,6 @@ a {
 .chart {
   background: lightgray;
   border: 1px solid black;
-  min-width: 200px;
-  min-height: 350px;
 }
 
 .bar {
@@ -33,4 +31,3 @@ a {
 .bar-on {
   fill: lightblue;
 }
-

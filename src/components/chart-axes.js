@@ -3,7 +3,7 @@
 // same example from margin-convention
 
 import { setFill } from './better-org'
-
+/*
 const margin = {
   top: 10,
   right: 0,
@@ -14,14 +14,14 @@ const margin = {
 const width = 425 - margin.left - margin.right
 const height = 625 - margin.top - margin.bottom
 
-const container = d3.select('.chart')
+const svg = d3.select('.chart')
   .append('svg')
     .attr('width', width + margin.left + margin.right)
     .attr('height', height + margin.left + margin.right)
   .append('g')
     .attr('transform', `translate(${margin.left}, ${margin.top})`)
 
-container.append('rect')
+svg.append('rect')
   .attr('width', width)
   .attr('height', height)
   .call(setFill, 'lightblue')
@@ -34,7 +34,7 @@ const yScale = d3.scaleLinear()
 // d3 makes creates its own ticks unless specified ==> d3.axisLeft(yScale).ticks(5, '.2s')
 // absolute control on ticks ==> d3.axisLeft(yScale).tickValues([8, 19, 43, 77])
 const yAxis = d3.axisLeft(yScale)
-container.call(yAxis)
+svg.call(yAxis)
 
 const xScale = d3.scaleTime()
   .domain([new Date(2016, 0, 1, 6), new Date(2016, 0, 1, 9)])
@@ -48,6 +48,7 @@ const xAxis = d3.axisBottom(xScale)
   .tickPadding(15) // so that all the numbers are aligned
 
 // get the scale to the bottom of the chart
-container.append('g')
+svg.append('g')
   .attr('transform', `translate(0, ${height})`)
   .call(xAxis)
+*/
