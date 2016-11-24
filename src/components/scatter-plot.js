@@ -17,6 +17,8 @@ const margin = {
 const width = 400 - margin.left - margin.right
 const height = 565 - margin.top - margin.bottom
 
+/*
+
 const svg = d3.select('.chart')
   .append('svg')
     .attr('width', width + margin.left + margin.right)
@@ -72,3 +74,5 @@ d3.json('../scatter-data.json', (err, data) => {
     .attr('y', 4)
     .text(d => d.code)
 })
+
+*/

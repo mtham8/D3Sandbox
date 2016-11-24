@@ -78,6 +78,10 @@
 	__webpack_require__(13);
 	
 	__webpack_require__(14);
+	
+	__webpack_require__(15);
+	
+	__webpack_require__(16);
 
 /***/ },
 /* 2 */
@@ -149,7 +153,7 @@
 	
 	// ======= LOAD AND INSPECT DATA ===========
 	// loading data ==> d3.json
-	var dataJSON = d3.json('data.json', function (data) {
+	var dataJSON = d3.json('../load-data.json', function (data) {
 	  // get minimum element
 	  var min = d3.min(data, function (d) {
 	    return d.age;
@@ -253,7 +257,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.setFill = undefined;
+	exports.setFill = exports.fade = undefined;
 	
 	var _startVisual = __webpack_require__(8);
 	
@@ -263,7 +267,7 @@
 	  return selection.style('transform', 'scaleX(' + scale + ')');
 	};
 	
-	var fade = function fade(selection, opacity) {
+	var fade = exports.fade = function fade(selection, opacity) {
 	  return selection.style('fill-opacity', opacity);
 	};
 	
@@ -428,47 +432,159 @@
 	var _betterOrg = __webpack_require__(10);
 	
 	var _responsiveView = __webpack_require__(13);
+
+/***/ },
+/* 15 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
 	
-	// ======= BUILD A COLUMN CHART ===========
+	var _betterOrg = __webpack_require__(10);
 	
-	// same example from responsive-view
+	var _responsiveView = __webpack_require__(13);
 	
-	var data = [{ score: 63, subject: 'Mathematics' }, { score: 82, subject: 'Geography' }, { score: 74, subject: 'Spelling' }, { score: 97, subject: 'Reading' }, { score: 52, subject: 'Science' }, { score: 74, subject: 'Chemistry' }, { score: 97, subject: 'Physics' }, { score: 52, subject: 'ASL' }];
-	
+	// ======= SCATTER PLOT ===========
+	/**
+	 * 1. append your data ==> d3.json(data, (error, data) => do something)
+	 * 2. create your xScale, yScale, and rScale
+	 * 3. join your data with elements via svg.selectAll('circle')
+	 * 4. set svg elements attributes to the defined scales (x, y r)
+	 */
 	var margin = {
 	  top: 10,
 	  right: 20,
-	  bottom: 30,
-	  left: 60
+	  bottom: 60,
+	  left: 30
 	};
 	var width = 400 - margin.left - margin.right;
 	var height = 565 - margin.top - margin.bottom;
 	
-	var svg = d3.select('.chart').append('svg').attr('width', width + margin.left + margin.right).attr('height', height + margin.left + margin.right)
-	// .call(responsivefy)
-	.append('g').attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')');
+	/*
 	
-	var yScale = d3.scaleLinear().domain([0, 100]).range([height, 0]);
-	var yAxis = d3.axisLeft(yScale);
-	svg.call(yAxis);
+	const svg = d3.select('.chart')
+	  .append('svg')
+	    .attr('width', width + margin.left + margin.right)
+	    .attr('height', height + margin.left + margin.right)
+	    .call(responsivefy)
+	  .append('g')
+	    .attr('transform', `translate(${margin.left}, ${margin.top})`)
+
+	d3.json('../scatter-data.json', (err, data) => {
+	  const yScale = d3.scaleLinear()
+	    .domain(d3.extent(data, d => d.expectancy))
+	    .range([height, 0])
+	    .nice()
+	  const yAxis = d3.axisLeft(yScale)
+	  svg.call(yAxis)
+
+	  const xScale = d3.scaleLinear()
+	    .domain(d3.extent(data, d => d.cost))
+	    .range([0, width])
+	    .nice()
+	  const xAxis = d3.axisBottom(xScale).ticks(5)
+
+	  svg
+	    .append('g')
+	    .attr('transform', `translate(0, ${height})`)
+	    .call(xAxis)
+
+	  // create a circle
+	  const rScale = d3.scaleSqrt()
+	    .domain([0, d3.max(data, d => d.population)])
+	    .range([0, 40])
+
+	  const circles = svg
+	    .selectAll('.ball')
+	    .data(data)
+	    .enter()
+	    .append('g')
+	      .attr('class', 'ball')
+	      .attr('transform', d => `translate(${xScale(d.cost)}, ${yScale(d.expectancy)})`)
+
+	  circles
+	    .append('circle')
+	    .attr('cx', 0)
+	    .attr('cy', 0)
+	    .attr('r', d => rScale(d.population))
+	    .call(setFill, 'steelblue')
+	    .call(fade, 0.5)
+
+	  circles
+	    .append('text')
+	    .style('text-anchor', 'middle')
+	    .call(setFill, 'black')
+	    .attr('y', 4)
+	    .text(d => d.code)
+	})
+
+	*/
+
+/***/ },
+/* 16 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
 	
-	var xScale = d3.scaleBand().paddingInner(0.2).paddingOuter(0.5).domain(data.map(function (d) {
-	  return d.subject;
-	})).range([0, width]);
-	var xAxis = d3.axisBottom(xScale).ticks(5);
+	var _betterOrg = __webpack_require__(10);
 	
-	// get the scale to the bottom of the chart
-	svg.append('g').attr('transform', 'translate(0, ' + height + ')').call(xAxis).selectAll('text').style('text-anchor', 'end').attr('transform', 'rotate(-45)');
+	var _responsiveView = __webpack_require__(13);
 	
-	// data join
-	svg.selectAll('rect').data(data).enter().append('rect').attr('x', function (d) {
-	  return xScale(d.subject);
-	}).attr('y', function (d) {
-	  return yScale(d.score);
-	}).attr('width', function (d) {
-	  return xScale.bandwidth();
-	}).attr('height', function (d) {
-	  return height - yScale(d.score);
+	// ======= LINE CHART ===========
+	
+	var margin = {
+	  top: 10,
+	  right: 20,
+	  bottom: 60,
+	  left: 30
+	};
+	var width = 400 - margin.left - margin.right;
+	var height = 565 - margin.top - margin.bottom;
+	
+	var svg = d3.select('.chart').append('svg').attr('width', width + margin.left + margin.right).attr('height', height + margin.left + margin.right).call(_responsiveView.responsivefy).append('g').attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')');
+	
+	d3.json('../line-data.json', function (err, data) {
+	  var parseTime = d3.timeParse('%Y/%m/%d');
+	
+	  data.forEach(function (company) {
+	    company.values.forEach(function (d) {
+	      d.date = parseTime(d.date);
+	      d.close = +d.close;
+	    });
+	  });
+	
+	  var xScale = d3.scaleTime().domain([d3.min(data, function (co) {
+	    return d3.min(co.values, function (d) {
+	      return d.date;
+	    });
+	  }), d3.max(data, function (co) {
+	    return d3.max(co.values, function (d) {
+	      return d.date;
+	    });
+	  })]).range([0, width]);
+	  svg.append('g').attr('transform', 'translate(0, ' + height + ')').call(d3.axisBottom(xScale).ticks(5));
+	
+	  var yScale = d3.scaleLinear().domain([d3.min(data, function (co) {
+	    return d3.min(co.values, function (d) {
+	      return d.close;
+	    });
+	  }), d3.max(data, function (co) {
+	    return d3.max(co.values, function (d) {
+	      return d.close;
+	    });
+	  })]).range([height, 0]);
+	  svg.append('g').call(d3.axisLeft(yScale));
+	
+	  var line = d3.line().x(function (d) {
+	    return xScale(d.date);
+	  }).y(function (d) {
+	    return yScale(d.close);
+	  }).curve(d3.curveCatmullRom.alpha(0.5)); // round out the ridged lines
+	
+	  svg.selectAll('.line').data(data).enter().append('path').attr('class', 'line').attr('d', function (d) {
+	    return line(d.values);
+	  }).style('stroke', function (d, i) {
+	    return ['#FF9900', '#3369E8'][i];
+	  }).style('stroke-width', 2).call(_betterOrg.setFill, 'none');
 	});
 
 /***/ }
