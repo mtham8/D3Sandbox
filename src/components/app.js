@@ -17,6 +17,11 @@ import './area-chart'
 import './debug-d3'
 import './animate-transition'
 import { go, goNow } from './reuse-transition'
+import { render } from './animate-pattern'
 
-$('.go').click( cb => go() )
-$('.goNow').click( cb => goNow() )
+$('.go').click( cb => go())
+$('.goNow').click( cb => goNow())
+
+$('.math').click(cb => render('math'))
+$('.science').click(cb => render('science'))
+$('.lang').click(cb => render('language'))
