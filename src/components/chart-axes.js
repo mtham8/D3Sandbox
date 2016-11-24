@@ -7,7 +7,7 @@ import { setFill } from './better-org'
 const margin = {
   top: 10,
   right: 0,
-  bottom: 30,
+  bottom: 60,
   left: 40
 }
 
@@ -22,13 +22,13 @@ const container = d3.select('.chart')
     .attr('transform', `translate(${margin.left}, ${margin.top})`)
 
 container.append('rect')
-  .attr('width', width/2)
+  .attr('width', width)
   .attr('height', height)
   .call(setFill, 'lightblue')
   .style('stroke', 'green')
 
 const yScale = d3.scaleLinear()
-  .domain([0, 500])
+  .domain([0, 100])
   .range([height, 0]) // y dimension runs from top to bottom
 
 // d3 makes creates its own ticks unless specified ==> d3.axisLeft(yScale).ticks(5, '.2s')
@@ -37,8 +37,17 @@ const yAxis = d3.axisLeft(yScale)
 container.call(yAxis)
 
 const xScale = d3.scaleTime()
-  .domain([new Date(2016, 0, 1), new Date(2016, 1, 1)])
+  .domain([new Date(2016, 0, 1, 6), new Date(2016, 0, 1, 9)])
   .range([0, width])
 
+// ticks for every 45 mins ==> const xAxis = d3.axisBottom(xScale).ticks(d3.timeMinute.every(45))
 const xAxis = d3.axisBottom(xScale)
-container.call(xAxis)
+  .ticks(5)
+  .tickSizeInner(10)
+  .tickSizeOuter(20) // longer ticks on the outside
+  .tickPadding(15) // so that all the numbers are aligned
+
+// get the scale to the bottom of the chart
+container.append('g')
+  .attr('transform', `translate(0, ${height})`)
+  .call(xAxis)
