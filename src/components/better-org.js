@@ -4,7 +4,7 @@ import { scores } from './start-visual'
 
 const scaleBar = (selection, scale) => selection.style('transform', `scaleX(${scale})`)
 
-const fade = (selection, opacity) => selection.style('fill-opacity', opacity)
+export const fade = (selection, opacity) => selection.style('fill-opacity', opacity)
 
 export const setFill = (selection, color) => selection.style('fill', color)
 

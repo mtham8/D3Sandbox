@@ -5,6 +5,8 @@
 import { setFill } from './better-org'
 import { responsivefy } from './responsive-view'
 
+/*
+
 const data = [
   {score: 63, subject: 'Mathematics'},
   {score: 82, subject: 'Geography'},
@@ -63,3 +65,5 @@ svg.selectAll('rect')
     .attr('y', d => yScale(d.score))
     .attr('width', d => xScale.bandwidth())
     .attr('height', d => height - yScale(d.score))
+
+*/

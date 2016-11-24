@@ -1,6 +1,6 @@
 // ======= LOAD AND INSPECT DATA ===========
 // loading data ==> d3.json
-const dataJSON = d3.json('data.json', data => {
+const dataJSON = d3.json('../load-data.json', data => {
   // get minimum element
   let min = d3.min(data, d => d.age)
   // console.log('this is min ==> ', min)
