@@ -91,11 +91,23 @@
 	
 	var _reuseTransition = __webpack_require__(20);
 	
+	var _animatePattern = __webpack_require__(21);
+	
 	$('.go').click(function (cb) {
 	  return (0, _reuseTransition.go)();
 	});
 	$('.goNow').click(function (cb) {
 	  return (0, _reuseTransition.goNow)();
+	});
+	
+	$('.math').click(function (cb) {
+	  return (0, _animatePattern.render)('math');
+	});
+	$('.science').click(function (cb) {
+	  return (0, _animatePattern.render)('science');
+	});
+	$('.lang').click(function (cb) {
+	  return (0, _animatePattern.render)('language');
 	});
 
 /***/ },
@@ -598,7 +610,6 @@
 	});
 	// ======= REUSE TRANSITIONS ===========
 	
-	
 	var go = exports.go = function go() {
 	  var t = d3.transition().delay(1000).duration(1000);
 	
@@ -616,6 +627,79 @@
 	// properly pass in transiton into elements
 	var goNow = exports.goNow = function goNow(cb) {
 	  return d3.selectAll('.block').transition().call(configure, 1000, 1000).style('height', '300px');
+	};
+
+/***/ },
+/* 21 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.render = undefined;
+	
+	var _betterOrg = __webpack_require__(10);
+	
+	var _responsiveView = __webpack_require__(13);
+	
+	// ======= ANIMATE WITH THE GENERAL UPDATE PATTERN ===========
+	
+	var data = [{ name: 'Alice', math: 37, science: 62, language: 54 }, { name: 'Billy', math: null, science: 34, language: 85 }, { name: 'Cindy', math: 86, science: 48, language: null }, { name: 'David', math: 44, science: null, language: 65 }, { name: 'Emily', math: 59, science: 73, language: 29 }];
+	
+	var margin = {
+	  top: 10,
+	  right: 10,
+	  bottom: 30,
+	  left: 60
+	};
+	var width = 400 - margin.left - margin.right;
+	var height = 535 - margin.top - margin.bottom;
+	
+	var svg = d3.select('.chart').append('svg').attr('width', width + margin.left + margin.right).attr('height', height + margin.left + margin.right).call(_responsiveView.responsivefy).append('g').attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')');
+	
+	var yScale = d3.scaleLinear().domain([0, 100]).range([height, 0]);
+	var yAxis = d3.axisLeft(yScale);
+	svg.append('g').call(yAxis);
+	
+	var xScale = d3.scaleBand().paddingInner(0.2).paddingOuter(0.5).domain(data.map(function (d) {
+	  return d.name;
+	})).range([0, width]);
+	var xAxis = d3.axisBottom(xScale);
+	
+	// get the scale to the bottom of the chart
+	svg.append('g').attr('transform', 'translate(0, ' + height + ')').call(xAxis);
+	
+	var render = exports.render = function render(sub) {
+	  var t = d3.transition().duration(500);
+	
+	  var update = svg.selectAll('rect').data(data.filter(function (d) {
+	    return d[sub];
+	  }), function (d) {
+	    return d.name;
+	  });
+	
+	  // slide out the data that are null
+	  update.exit().transition(t).attr('y', height).attr('height', 0).remove(); // remove any rect that doesn't have data
+	
+	  // update the remaining elements
+	  update.transition(t).delay(500).attr('y', function (d) {
+	    return yScale(d[sub]);
+	  }).attr('height', function (d) {
+	    return height - yScale(d[sub]);
+	  });
+	
+	  // add new elements with data
+	  update.enter().append('rect').transition(t).attr('y', height).attr('height', 0).attr('x', function (d) {
+	    return xScale(d.name);
+	  }).attr('width', function (d) {
+	    return xScale.bandwidth();
+	  }).transition(t).delay(update.exit().size() ? 500 : 0).attr('y', function (d) {
+	    return yScale(d[sub]);
+	  }).attr('height', function (d) {
+	    return height - yScale(d[sub]);
+	  });
 	};
 
 /***/ }
