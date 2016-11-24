@@ -1,9 +1,9 @@
-// ======= LINE CHART ===========
+// ======= AREA CHART ===========
+
+// same example from line-chart
 
 import { setFill, fade } from './better-org'
 import { responsivefy } from './responsive-view'
-
-/*
 
 const margin = {
   top: 10,
@@ -53,21 +53,20 @@ d3.json('../line-data.json', (err, data) => {
     .append('g')
     .call(d3.axisLeft(yScale))
 
-  const line = d3.line()
+  const area = d3.area()
     .x(d => xScale(d.date))
-    .y(d => yScale(d.close))
-    .curve(d3.curveCatmullRom.alpha(0.5)) // round out the ridged lines
+    .y0(yScale(yScale.domain()[0]))
+    .y1(d => yScale(d.close))
 
   svg
-    .selectAll('.line')
+    .selectAll('.area')
     .data(data)
     .enter()
     .append('path')
-    .attr('class', 'line')
-    .attr('d', d => line(d.values))
+    .attr('class', 'area')
+    .attr('d', d => area(d.values))
     .style('stroke', (d, i) => ['#FF9900', '#3369E8'][i])
     .style('stroke-width', 2)
-    .call(setFill, 'none');
+    .call(setFill, (d, i) => ['#FF9900', '#3369E8'][i])
+    .call(fade, 0.5)
 })
-
-*/
