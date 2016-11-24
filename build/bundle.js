@@ -76,6 +76,8 @@
 	__webpack_require__(12);
 	
 	__webpack_require__(13);
+	
+	__webpack_require__(14);
 
 /***/ },
 /* 2 */
@@ -329,6 +331,11 @@
 
 	'use strict';
 	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.responsivefy = undefined;
+	
 	var _betterOrg = __webpack_require__(10);
 	
 	var margin = {
@@ -338,16 +345,19 @@
 	  left: 40
 	};
 	
+	// ======= FUNCTION TO RESIZE SVG TO PARENT CONTAINER ===========
 	// svg = d3.select('svg')
 	// ======= MAKE D3V4 CHARTS RESPONSIVE WITH viewBox ATTRIBUTE ===========
+	
 	// understanding svg coordinates and transform ==> https://sarasoueidan.com/blog/svg-coordinate-systems/
+	
 	// same example from chart-axes
 	
 	/**
 	 * viewBox = <min-x> <min-y> <width> <height>
 	 */
 	
-	var responsivefy = function responsivefy(svg) {
+	var responsivefy = exports.responsivefy = function responsivefy(svg) {
 	  // get container + svg aspect ratio
 	  var container = d3.select(svg.node().parentNode),
 	      width = parseInt(svg.style('width')),
@@ -372,22 +382,94 @@
 	  d3.select(window).on('resize.' + container + '.attr(\'id\')', resize);
 	};
 	
-	var width = 425 - margin.left - margin.right;
-	var height = 625 - margin.top - margin.bottom;
+	/*
 	
-	var svg = d3.select('.chart').append('svg').attr('width', width + margin.left + margin.right).attr('height', height + margin.left + margin.right).call(responsivefy).append('g').attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')');
+	const width = 425 - margin.left - margin.right
+	const height = 625 - margin.top - margin.bottom
+
+	const svg = d3.select('.chart')
+	  .append('svg')
+	    .attr('width', width + margin.left + margin.right)
+	    .attr('height', height + margin.left + margin.right)
+	    .call(responsivefy)
+	  .append('g')
+	    .attr('transform', `translate(${margin.left}, ${margin.top})`)
+
+	svg.append('rect')
+	  .attr('width', width)
+	  .attr('height', height)
+	  .call(setFill, 'lightblue')
+	  .style('stroke', 'green')
+
+	const yScale = d3.scaleLinear()
+	  .domain([0, 100])
+	  .range([height, 0])
+	const yAxis = d3.axisLeft(yScale)
+	svg.call(yAxis)
+
+	const xScale = d3.scaleTime()
+	  .domain([new Date(2016, 0, 1, 6), new Date(2016, 0, 1, 9)])
+	  .range([0, width])
+	const xAxis = d3.axisBottom(xScale).ticks(5)
+
+	// get the scale to the bottom of the chart
+	svg.append('g')
+	  .attr('transform', `translate(0, ${height})`)
+	  .call(xAxis)
+
+	*/
+
+/***/ },
+/* 14 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
 	
-	svg.append('rect').attr('width', width).attr('height', height).call(_betterOrg.setFill, 'lightblue').style('stroke', 'green');
+	var _betterOrg = __webpack_require__(10);
+	
+	var _responsiveView = __webpack_require__(13);
+	
+	// ======= BUILD A COLUMN CHART ===========
+	
+	// same example from responsive-view
+	
+	var data = [{ score: 63, subject: 'Mathematics' }, { score: 82, subject: 'Geography' }, { score: 74, subject: 'Spelling' }, { score: 97, subject: 'Reading' }, { score: 52, subject: 'Science' }, { score: 74, subject: 'Chemistry' }, { score: 97, subject: 'Physics' }, { score: 52, subject: 'ASL' }];
+	
+	var margin = {
+	  top: 10,
+	  right: 20,
+	  bottom: 30,
+	  left: 60
+	};
+	var width = 400 - margin.left - margin.right;
+	var height = 565 - margin.top - margin.bottom;
+	
+	var svg = d3.select('.chart').append('svg').attr('width', width + margin.left + margin.right).attr('height', height + margin.left + margin.right)
+	// .call(responsivefy)
+	.append('g').attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')');
 	
 	var yScale = d3.scaleLinear().domain([0, 100]).range([height, 0]);
 	var yAxis = d3.axisLeft(yScale);
 	svg.call(yAxis);
 	
-	var xScale = d3.scaleTime().domain([new Date(2016, 0, 1, 6), new Date(2016, 0, 1, 9)]).range([0, width]);
+	var xScale = d3.scaleBand().paddingInner(0.2).paddingOuter(0.5).domain(data.map(function (d) {
+	  return d.subject;
+	})).range([0, width]);
 	var xAxis = d3.axisBottom(xScale).ticks(5);
 	
 	// get the scale to the bottom of the chart
-	svg.append('g').attr('transform', 'translate(0, ' + height + ')').call(xAxis);
+	svg.append('g').attr('transform', 'translate(0, ' + height + ')').call(xAxis).selectAll('text').style('text-anchor', 'end').attr('transform', 'rotate(-45)');
+	
+	// data join
+	svg.selectAll('rect').data(data).enter().append('rect').attr('x', function (d) {
+	  return xScale(d.subject);
+	}).attr('y', function (d) {
+	  return yScale(d.score);
+	}).attr('width', function (d) {
+	  return xScale.bandwidth();
+	}).attr('height', function (d) {
+	  return height - yScale(d.score);
+	});
 
 /***/ }
 /******/ ]);

@@ -1,5 +1,7 @@
 // ======= MAKE D3V4 CHARTS RESPONSIVE WITH viewBox ATTRIBUTE ===========
+
 // understanding svg coordinates and transform ==> https://sarasoueidan.com/blog/svg-coordinate-systems/
+
 // same example from chart-axes
 
 /**
@@ -15,8 +17,9 @@ const margin = {
   left: 40
 }
 
+// ======= FUNCTION TO RESIZE SVG TO PARENT CONTAINER ===========
 // svg = d3.select('svg')
-const responsivefy = svg => {
+export const responsivefy = svg => {
   // get container + svg aspect ratio
   let container = d3.select(svg.node().parentNode),
       width = parseInt(svg.style('width')),
@@ -41,8 +44,9 @@ const responsivefy = svg => {
   // necessary if you call invoke this function for multiple svg
   // api docs: https://github.com/mbostock/d3/wiki/Selection#on
   d3.select(window).on(`resize.${container}.attr('id')`, resize)
-
 }
+
+/*
 
 const width = 425 - margin.left - margin.right
 const height = 625 - margin.top - margin.bottom
@@ -76,3 +80,5 @@ const xAxis = d3.axisBottom(xScale).ticks(5)
 svg.append('g')
   .attr('transform', `translate(0, ${height})`)
   .call(xAxis)
+
+*/

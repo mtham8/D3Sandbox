@@ -18,6 +18,8 @@ a {
 .chart {
   background: lightgray;
   border: 1px solid black;
+  /*width: 525px;
+  height: 725px;*/
 }
 
 .bar {
@@ -30,4 +32,14 @@ a {
 
 .bar-on {
   fill: lightblue;
+}
+
+rect {
+  fill: steelblue;
+  stroke: black;
+  stroke-width: 1;
+}
+
+rect:hover {
+  fill: turquoise;
 }
