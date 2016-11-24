@@ -1,8 +1,9 @@
 import { setFill } from './better-org'
 // ======= MARGIN CONVENTION ===========
 
+/*
 const margin = {
-  top: 0,
+  top: 10,
   right: 0,
   bottom: 25,
   left: 25
@@ -30,3 +31,4 @@ container.append('rect')
   .attr('height', height)
   .call(setFill, 'peru')
   .style('stroke', 'green')
+*/

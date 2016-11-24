@@ -6,7 +6,7 @@ const scaleBar = (selection, scale) => selection.style('transform', `scaleX(${sc
 
 const fade = (selection, opacity) => selection.style('fill-opacity', opacity)
 
-const setFill = (selection, color) => selection.style('fill', color)
+export const setFill = (selection, color) => selection.style('fill', color)
 
 /*
 const bar = d3.select('.chart')

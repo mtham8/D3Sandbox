@@ -72,6 +72,8 @@
 	__webpack_require__(10);
 	
 	__webpack_require__(11);
+	
+	__webpack_require__(12);
 
 /***/ },
 /* 2 */
@@ -244,6 +246,11 @@
 
 	'use strict';
 	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.setFill = undefined;
+	
 	var _startVisual = __webpack_require__(8);
 	
 	// ======= BETTER CODE ORGANIZATION WITH SELECTION.CALL() ===========
@@ -256,7 +263,7 @@
 	  return selection.style('fill-opacity', opacity);
 	};
 	
-	var setFill = function setFill(selection, color) {
+	var setFill = exports.setFill = function setFill(selection, color) {
 	  return selection.style('fill', color);
 	};
 	
@@ -300,27 +307,47 @@
 
 /***/ },
 /* 11 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	// ======= MARGIN CONVENTION ===========
+	var _betterOrg = __webpack_require__(10);
+
+/***/ },
+/* 12 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _betterOrg = __webpack_require__(10);
 	
 	var margin = {
-	  top: 0,
+	  top: 10,
 	  right: 0,
-	  bottom: 25,
-	  left: 25
-	};
+	  bottom: 30,
+	  left: 40
+	}; // ======= CREATE CHART AXES WITH D3V4 ===========
+	
+	// same example from margin-convention
 	
 	var width = 425 - margin.left - margin.right;
 	var height = 625 - margin.top - margin.bottom;
 	
 	var container = d3.select('.chart').append('svg').attr('width', width + margin.left + margin.right).attr('height', height + margin.left + margin.right).append('g').attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')');
 	
-	container.append('rect').attr('width', width / 2).attr('height', height).style('fill', 'lightblue').style('stroke', 'green');
+	container.append('rect').attr('width', width / 2).attr('height', height).call(_betterOrg.setFill, 'lightblue').style('stroke', 'green');
 	
-	container.append('rect').attr('x', width / 2).attr('width', width / 2).attr('height', height).style('fill', 'peru').style('stroke', 'green');
+	var yScale = d3.scaleLinear().domain([0, 500]).range([height, 0]); // y dimension runs from top to bottom
+	
+	// d3 makes creates its own ticks unless specified ==> d3.axisLeft(yScale).ticks(5, '.2s')
+	// absolute control on ticks ==> d3.axisLeft(yScale).tickValues([8, 19, 43, 77])
+	var yAxis = d3.axisLeft(yScale);
+	container.call(yAxis);
+	
+	var xScale = d3.scaleTime().domain([new Date(2016, 0, 1), new Date(2016, 1, 1)]).range([0, width]);
+	
+	var xAxis = d3.axisBottom(xScale);
+	container.call(xAxis);
 
 /***/ }
 /******/ ]);

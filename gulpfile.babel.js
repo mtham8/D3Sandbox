@@ -20,5 +20,4 @@ gulp.task('stream:js', () => watch(dev.js).on('change', cb => gulp.start('js')))
 
 gulp.task('stream', ['stream:static', 'stream:js'])
 
-gulp.task('watch', ['stream'])
-
+gulp.task('default', ['stream'])

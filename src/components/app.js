@@ -8,47 +8,4 @@ import './start-visual'
 import './output-svg'
 import './better-org'
 import './margin-convention'
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+import './chart-axes'
